@@ -19,6 +19,10 @@
             {{genre.genre}}
           </option>
         </select>
+        <span class="error"
+              *ngIf="form.get('genre')?.touched
+                 && form.get('genre')?.invalid"
+        >Please enter genre</span>
 
         <select formControlName="author">
           <ng-container *ngFor="let author of authors">
@@ -31,7 +35,6 @@
           </ng-container>
         </select>
 
-        <input formControlName="author" type="text" placeholder="Book Author">
         <span class="error"
               *ngIf="form.get('author')?.touched && form.get('author')?.invalid"
         >Please enter author name</span>

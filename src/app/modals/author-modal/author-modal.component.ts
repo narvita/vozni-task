@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {DataService} from '../../services/data.service';
 import {GenreInterface} from '../../interfaces/genre.interface';
+import {Subject, takeUntil} from 'rxjs';
+import {GenreService} from '../../services/genre.service';
 
 @Component({
   selector: 'app-author-modal',
@@ -12,11 +13,14 @@ export class AuthorModalComponent implements OnInit {
   public isOpenModal!: boolean;
   public genres: GenreInterface[] = [];
 
+  private unsubscriber$ = new Subject<void>();
+
+
   @Input() authorForm!: FormGroup;
   @Output() emitAuthorForm = new EventEmitter();
 
   constructor(
-    private dataService: DataService
+    private genreService: GenreService
   ) {
   }
 
@@ -26,20 +30,19 @@ export class AuthorModalComponent implements OnInit {
 
   public toggleModal(): void {
     this.isOpenModal = !this.isOpenModal;
-    console.log('clicked')
-  }
-
-  public askPermission(): void {
-
   }
 
   public setAuthorForm(): void {
     this.emitAuthorForm.emit(this.authorForm);
-    console.log(this.authorForm);
     this.isOpenModal = false;
   }
 
-  private getGenres(): void {
-    this.genres = this.dataService.genresArr;
+
+  public getGenres(): void {
+    this.genreService.getGenre()
+      .pipe(takeUntil(this.unsubscriber$))
+      .subscribe((res: GenreInterface[]) => {
+        this.genres = res;
+      });
   }
 }

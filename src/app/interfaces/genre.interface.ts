@@ -1,3 +1,4 @@
 export interface GenreInterface {
-  genre: string
+  id?: number;
+  genre: string;
 }

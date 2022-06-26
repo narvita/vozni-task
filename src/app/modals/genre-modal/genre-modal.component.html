@@ -7,15 +7,16 @@
 
       <form  [formGroup]="form" class="form-box">
         <h1> Add new genre</h1>
-        <input formControlName="genre" type="text" placeholder="Add genre">
-        <span *ngIf="form.controls['genre'].errors">
-          error
-        </span>
+        <input formControlName="genre" type="text" placeholder="Genre">
+        <span class="error"
+              *ngIf="form.get('genre')?.touched
+                 && form.get('genre')?.invalid"
+        >Please enter genre with uppercase</span>
       </form>
 
       <div class="button-box">
         <button class="button update-btn"
-                (click)="askPermission()"
+                (click)="addGenre()"
                 [disabled]="form.invalid"
                 [ngClass]="{disable: form.invalid}"
         >Update</button>

@@ -3,6 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataService} from '../../services/data.service';
 import {GenreInterface} from '../../interfaces/genre.interface';
 import {AuthorInterface} from '../../interfaces/author.interface';
+import {Subject, takeUntil} from 'rxjs';
+import {GenreService} from '../../services/genre.service';
+import {AuthorService} from '../../services/author.service';
 
 @Component({
   selector: 'app-book-modal',
@@ -14,12 +17,15 @@ export class BookModalComponent implements OnInit {
   public genres: GenreInterface[] = [];
   public authors: AuthorInterface[] = [];
 
+  private unsubscriber$ = new Subject<void >();
+
   @Input() form!: FormGroup;
   @Output() emitBookForm = new EventEmitter();
 
   constructor(
-    private dataService: DataService
-  ) {
+    private genreService: GenreService,
+    private authorService: AuthorService
+    ) {
   }
 
   ngOnInit(): void {
@@ -29,7 +35,6 @@ export class BookModalComponent implements OnInit {
 
   public toggleModal(): void {
     this.isOpenModal = !this.isOpenModal;
-    console.log('clicked')
   }
 
   public addBook(): void {
@@ -37,11 +42,19 @@ export class BookModalComponent implements OnInit {
     this.isOpenModal = false;
   }
 
-  private getGenres(): void {
-    this.genres = this.dataService.genresArr;
+  public getGenres(): void {
+    this.genreService.getGenre()
+      .pipe(takeUntil(this.unsubscriber$))
+      .subscribe((res: GenreInterface[]) => {
+        this.genres = res;
+      });
   }
 
-  private getAuthors(): void {
-    this.authors = this.dataService.authorsArr;
+  public getAuthors(): void {
+    this.authorService.getAuthors()
+      .pipe(takeUntil(this.unsubscriber$))
+      .subscribe((res: AuthorInterface[]) => {
+        this.authors = res;
+      });
   }
 }

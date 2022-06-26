@@ -2,14 +2,23 @@
   <div class="content">
     <div>
       <app-book-modal
-        [form]="form"
+        [form]="bookForm"
         (emitBookForm)="addBook($event)"
       ></app-book-modal>
     </div>
     <table class="list">
-      <tr class="list-row" *ngFor="let book of books">
+      <tr class="list-row">
+        <td class="list-item list-header">Name</td>
+        <td class="list-item">Author</td>
+        <td class="list-item">Genre</td>
+        <td class="list-item">Description</td>
+        <td class="list-item">Release  Date</td>
+        <td class="list-item edit"> Edit</td>
+      </tr>
+      <tr class="list-row" *ngFor="let book of booksArr">
         <td class="list-item">{{book.name}}</td>
         <td class="list-item">{{book.author}}</td>
+        <td class="list-item">{{book.genre}}</td>
         <td class="list-item">{{book.description}}</td>
         <td class="list-item">{{book.releaseDate}}</td>
         <td class="list-item edit"> Edit</td>

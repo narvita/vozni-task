@@ -1,1 +1,93 @@
-{}
+{
+  "genres": [
+    {
+      "genre": "Genre 1",
+      "id": 1
+    },
+    {
+      "genre": "Genre 2",
+      "id": 2
+    },
+    {
+      "genre": "Genre 3",
+      "id": 3
+    }
+  ],
+  "authors": [
+    {
+      "authorName": "Narek",
+      "genre": "Genre 1",
+      "id": 1
+    },
+    {
+      "authorName": "Author2",
+      "genre": "Genre 2",
+      "id": 2
+    },
+    {
+      "authorName": "Authoe 3",
+      "genre": "Genre 3",
+      "id": 3
+    },
+    {
+      "authorName": "Author6",
+      "genre": "Genre 2",
+      "id": 4
+    },
+    {
+      "authorName": "Author 6",
+      "genre": "Genre 2",
+      "id": 5
+    }
+  ],
+  "books": [
+    {
+      "name": "Book!",
+      "author": "Narek",
+      "genre": "Genre 1",
+      "description": "",
+      "releaseDate": "",
+      "id": 1
+    },
+    {
+      "name": "Book 2",
+      "author": "Narek",
+      "genre": "Genre 1",
+      "description": "",
+      "releaseDate": "",
+      "id": 2
+    },
+    {
+      "name": "Book 3",
+      "author": "Narek",
+      "genre": "Genre 1",
+      "description": "",
+      "releaseDate": "",
+      "id": 3
+    },
+    {
+      "name": "Book 3",
+      "author": "Narek",
+      "genre": "Genre 1",
+      "description": "",
+      "releaseDate": "",
+      "id": 4
+    },
+    {
+      "name": "Book 3",
+      "author": "Narek",
+      "genre": "Genre 1",
+      "description": "",
+      "releaseDate": "",
+      "id": 5
+    },
+    {
+      "name": "Book 11",
+      "author": "Authoe 3",
+      "genre": "Genre 3",
+      "description": "",
+      "releaseDate": "",
+      "id": 6
+    }
+  ]
+}

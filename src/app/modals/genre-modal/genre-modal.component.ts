@@ -20,13 +20,8 @@ export class GenreModalComponent implements OnInit {
 
   public toggleModal(): void {
     this.isOpenModal = !this.isOpenModal;
-    console.log('clicked')
   }
 
-  public askPermission(): void {
-    confirm('you wanna make changes?') ? this.addGenre():  this.isOpenModal = false;
-
-  }
   public addGenre(): void {
     this.emitGenreForm.emit(this.form);
     this.isOpenModal = false

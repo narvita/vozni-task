@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {BooksConfig} from '../../constants/modal-configs.constants';
-import {DataService} from '../../services/data.service';
 import {BookInterface} from '../../interfaces/book.interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Subject, takeUntil} from 'rxjs';
+import {BookService} from '../../services/book.service';
 
 @Component({
   selector: 'app-books',
@@ -10,28 +10,43 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
-  public books: BookInterface[] = [];
-  public form!: FormGroup;
+  public booksArr: BookInterface[] = [];
+  public bookForm!: FormGroup;
+
+  private unsubscriber$ = new Subject<void>();
 
   constructor(
-    private data: DataService,
+    private bookService: BookService,
     private fb: FormBuilder
   ) {
   }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.bookForm = this.fb.group({
       name: ['', Validators.required],
       author: ['', Validators.required],
       genre: ['', Validators.required],
       description: ['', Validators.required],
       releaseDate: ['', Validators.required]
-    })
-    this.books = this.data.booksArr;
+    });
+    this.getBooks();
   }
 
+
   public addBook(data: any): void {
-    this.form = data;
-    this.data.addBook(this.form.value);
+    this.bookForm = data;
+    this.bookService.addBook(this.bookForm.value)
+      .pipe(takeUntil(this.unsubscriber$))
+      .subscribe((res: BookInterface) => {
+      });
+    this.getBooks();
+  }
+
+  public getBooks(): void {
+    this.bookService.getBooks()
+      .pipe(takeUntil(this.unsubscriber$))
+      .subscribe((res: BookInterface[]) => {
+        this.booksArr = res;
+      });
   }
 }
