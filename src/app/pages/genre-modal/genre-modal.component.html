@@ -1,0 +1,28 @@
+<div class="content">
+  <button class="newItemBtn" (click)="toggleModal()">Add new</button>
+
+  <div class="modal" *ngIf="isOpenModal">
+    <div class="modalContent">
+
+
+      <form  [formGroup]="form" class="form-box">
+        <h1> Add new genre</h1>
+        <input formControlName="genre" type="text" placeholder="Add genre">
+        <span *ngIf="form.controls['genre'].errors">
+          error
+        </span>
+      </form>
+
+      <div class="button-box">
+        <button class="button update-btn"
+                (click)="askPermission()"
+                [disabled]="form.invalid"
+                [ngClass]="{disable: form.invalid}"
+        >Update</button>
+        <button class="button close-btn" (click)="toggleModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+

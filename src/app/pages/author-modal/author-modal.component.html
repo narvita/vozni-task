@@ -1,0 +1,47 @@
+<div class="content">
+  <button class="newItemBtn" (click)="toggleModal()">Add new</button>
+
+  <div class="modal" *ngIf="isOpenModal">
+    <div class="modalContent">
+
+      <form [formGroup]="authorForm" class="form-box">
+        <h1> Add new Author</h1>
+        <input formControlName="authorName" type="text" placeholder="Author name">
+        <span class="error"
+              *ngIf=" authorForm.get('authorName')?.touched &&
+                      authorForm.controls['authorName'].errors">
+                Please enter Author name whit uppercase
+        </span>
+
+        <select formControlName="genre">
+          <option
+            *ngFor="let genre of genres"
+            [value]="genre.genre"
+          >
+            {{genre.genre}}
+          </option>
+        </select>
+
+        <span class="error"
+          *ngIf="authorForm.get('genre')?.touched
+                 && authorForm.get('genre')?.invalid"
+        >Please enter genre</span>
+
+      </form>
+
+      <div class="button-box">
+        <button class="button update-btn"
+                [ngClass]="{disable: authorForm.invalid}"
+                [disabled]="authorForm.invalid"
+                (click)="setAuthorForm()"
+        >Update
+        </button>
+        <button class="button close-btn"
+                (click)="toggleModal()"
+        >Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

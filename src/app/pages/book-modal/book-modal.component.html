@@ -1,0 +1,59 @@
+<div class="content">
+  <button class="newItemBtn" (click)="toggleModal()">Add new</button>
+
+  <div class="modal" *ngIf="isOpenModal">
+    <div class="modalContent">
+
+      <form [formGroup]="form" class="form-box">
+        <h1> Add new Book</h1>
+        <input formControlName="name" type="text" placeholder="Book name">
+        <span class="error"
+          *ngIf="form.get('name')?.touched && form.get('name')?.invalid"
+        >Please enter Book name</span>
+
+        <select formControlName="genre">
+          <option
+            *ngFor="let genre of genres"
+            [value]="genre.genre"
+          >
+            {{genre.genre}}
+          </option>
+        </select>
+
+        <select formControlName="author">
+          <ng-container *ngFor="let author of authors">
+            <option
+              *ngIf="author.genre === form.get('genre')?.value"
+              [value]="author.authorName"
+            >
+              {{author.authorName}}
+            </option>
+          </ng-container>
+        </select>
+
+        <input formControlName="author" type="text" placeholder="Book Author">
+        <span class="error"
+              *ngIf="form.get('author')?.touched && form.get('author')?.invalid"
+        >Please enter author name</span>
+
+        <input formControlName="description" type="text" class="description-input" placeholder="Description">
+        <input formControlName="releaseDate" type="date" placeholder="Release date">
+      </form>
+
+
+      <div class="button-box">
+        <button class="button update-btn"
+                [ngClass]="{disable:  form.get('name')?.invalid
+                            || form.get('author')?.invalid }"
+
+                [disabled]=" form.get('author')?.invalid
+                            || form.get('name')?.invalid"
+                (click)="addBook()"
+        >Update</button>
+        <button class="button close-btn" (click)="toggleModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+

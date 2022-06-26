@@ -1,0 +1,18 @@
+<div class="section">
+  <div class="content">
+    <app-genre-modal
+      [form]="genreForm"
+      (emitGenreForm)="addGenre($event)"
+    ></app-genre-modal>
+    <table class="list">
+      <tr>
+        <th class="list-item list-header">Genre</th>
+        <th class="list-item list-header">Modify</th>
+      </tr>
+      <tr *ngFor="let genre of genresArr">
+        <td class="list-item">{{genre.genre}}</td>
+        <td class="list-item edit">Edit</td>
+      </tr>
+    </table>
+  </div>
+</div>
